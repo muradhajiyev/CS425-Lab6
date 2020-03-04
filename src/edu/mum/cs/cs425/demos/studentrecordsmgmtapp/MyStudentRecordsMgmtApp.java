@@ -33,15 +33,13 @@ public class MyStudentRecordsMgmtApp {
 
     private static void printListOfStudents(Student[] students){
         Arrays.sort(students, new NameAscendingComparator());
-
         for (Student student : students) {
             System.out.println(student);
         }
     }
 
     private static void getListOfPlatinumAlumniStudents(Student[] students){
-        int currentYear = LocalDate.now().getYear();
-        students = Arrays.stream(students).filter(student ->  currentYear - student.getDateOfAdmission().getYear() >= 30)
+        students = Arrays.stream(students).filter(Student::isPlatinumAlumniStudent)
                 .sorted(Comparator.comparing(Student::getDateOfAdmission).reversed()).toArray(Student[]::new);
 
         for (Student student : students) {
